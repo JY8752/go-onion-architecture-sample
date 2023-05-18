@@ -2,6 +2,7 @@ package ui
 
 import (
 	"github.com/JY8752/go-onion-architecture-sample/registory"
+	"github.com/JY8752/go-onion-architecture-sample/userinterface/request"
 	"github.com/labstack/echo/v4"
 )
 
@@ -18,10 +19,19 @@ func NewApiClient(registory registory.Registory) *ApiClient {
 }
 
 func (a *ApiClient) RegisterRoute() {
+	// user
 	a.client.POST("/user", func(c echo.Context) error {
-		a.registory.UserService().Create()
+		r := new(request.CreateUserRequest)
+		if err := c.Bind(r); err != nil {
+			return err
+		}
+
+		a.registory.UserService().Create(r.Name)
 		return c.String(200, "Hello World")
 	})
+
+	// todo
+
 }
 
 func (a *ApiClient) Start() error {

@@ -1,8 +1,8 @@
 package registory
 
 import (
+	service "github.com/JY8752/go-onion-architecture-sample/application/service/user"
 	repository "github.com/JY8752/go-onion-architecture-sample/domain/repository/user"
-	service "github.com/JY8752/go-onion-architecture-sample/domain/service/user"
 	db "github.com/JY8752/go-onion-architecture-sample/infrastructure"
 	infrastructure "github.com/JY8752/go-onion-architecture-sample/infrastructure/repository/user"
 )
