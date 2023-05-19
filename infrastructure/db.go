@@ -15,7 +15,8 @@ var db *sql.DB
 
 func init() {
 	// sqlite3に接続
-	db, err := sql.Open("sqlite3", "./go_onion_architecture.db")
+	var err error
+	db, err = sql.Open("sqlite3", "./go_onion_architecture.db")
 	if err != nil {
 		log.Fatal(err)
 	}

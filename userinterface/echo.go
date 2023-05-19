@@ -2,8 +2,9 @@ package ui
 
 import (
 	"github.com/JY8752/go-onion-architecture-sample/registory"
-	"github.com/JY8752/go-onion-architecture-sample/userinterface/request"
+	handler "github.com/JY8752/go-onion-architecture-sample/userinterface/handler/user"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 type ApiClient struct {
@@ -12,28 +13,25 @@ type ApiClient struct {
 }
 
 func NewApiClient(registory registory.Registory) *ApiClient {
+	e := echo.New()
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+
 	return &ApiClient{
-		client:    echo.New(),
+		client:    e,
 		registory: registory,
 	}
 }
 
 func (a *ApiClient) RegisterRoute() {
 	// user
-	a.client.POST("/user", func(c echo.Context) error {
-		r := new(request.CreateUserRequest)
-		if err := c.Bind(r); err != nil {
-			return err
-		}
-
-		a.registory.UserService().Create(r.Name)
-		return c.String(200, "Hello World")
-	})
+	handler.UserHandler(a.client, a.registory)
 
 	// todo
 
 }
 
-func (a *ApiClient) Start() error {
-	return a.client.Start(":8080")
+func (a *ApiClient) Start() {
+	a.client.Logger.Fatal(a.client.Start(":8080"))
 }

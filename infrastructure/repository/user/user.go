@@ -36,3 +36,18 @@ func (u *userRepository) Create(name string) (model.UserId, error) {
 
 	return model.UserId(id), nil
 }
+
+func (u *userRepository) Get(id model.UserId) (model.User, error) {
+	stmt, err := u.dbClient.Client.Prepare("SELECT * FROM users WHERE id = ?")
+	if err != nil {
+		return model.User{}, err
+	}
+
+	var user model.User
+	err = stmt.QueryRow(id).Scan(&user.Id, &user.Name, &user.CreatedAt)
+	if err != nil {
+		return model.User{}, err
+	}
+
+	return user, nil
+}

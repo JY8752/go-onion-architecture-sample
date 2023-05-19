@@ -7,6 +7,7 @@ import (
 
 type UserService interface {
 	Create(string) (model.UserId, error)
+	Get(model.UserId) (model.User, error)
 }
 
 type userService struct {
@@ -21,4 +22,8 @@ func NewUserService(userRep repository.UserRepository) UserService {
 
 func (u *userService) Create(name string) (model.UserId, error) {
 	return u.userRep.Create(name)
+}
+
+func (u *userService) Get(id model.UserId) (model.User, error) {
+	return u.userRep.Get(id)
 }
