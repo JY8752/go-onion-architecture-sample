@@ -1,15 +1,17 @@
 package registory
 
 import (
-	service "github.com/JY8752/go-onion-architecture-sample/application/service/user"
-	repository "github.com/JY8752/go-onion-architecture-sample/domain/repository/user"
+	service "github.com/JY8752/go-onion-architecture-sample/application/service"
+	repository "github.com/JY8752/go-onion-architecture-sample/domain/repository"
 	db "github.com/JY8752/go-onion-architecture-sample/infrastructure"
-	infrastructure "github.com/JY8752/go-onion-architecture-sample/infrastructure/repository/user"
+	infrastructure "github.com/JY8752/go-onion-architecture-sample/infrastructure/repository"
 )
 
 type Registory interface {
 	UserRep() repository.UserRepository
 	UserService() service.UserService
+	TodoRep() repository.TodoRepository
+	TodoService() service.TodoService
 }
 
 type registory struct {
@@ -28,4 +30,12 @@ func (r *registory) UserRep() repository.UserRepository {
 
 func (r *registory) UserService() service.UserService {
 	return service.NewUserService(r.UserRep())
+}
+
+func (r *registory) TodoRep() repository.TodoRepository {
+	return infrastructure.NewTodoRepository(r.dbClient)
+}
+
+func (r *registory) TodoService() service.TodoService {
+	return service.NewTodoService(r.TodoRep())
 }

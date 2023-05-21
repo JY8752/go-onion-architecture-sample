@@ -1,11 +1,10 @@
 package handler
 
 import (
-	"strconv"
-
-	model "github.com/JY8752/go-onion-architecture-sample/domain/model/user"
+	"github.com/JY8752/go-onion-architecture-sample/common"
 	"github.com/JY8752/go-onion-architecture-sample/registory"
 	"github.com/JY8752/go-onion-architecture-sample/userinterface/request"
+	"github.com/JY8752/go-onion-architecture-sample/userinterface/response"
 	"github.com/labstack/echo/v4"
 )
 
@@ -21,22 +20,20 @@ func UserHandler(client *echo.Echo, registory registory.Registory) {
 			return err
 		}
 
-		return c.JSON(200, id)
+		return c.JSON(200, response.CreateUserResponse{Id: id})
 	})
 
 	client.GET("/user/:id", func(c echo.Context) error {
-		i, err := strconv.Atoi(c.Param("id"))
+		id, err := common.GetUserId(c.Param("id"))
 		if err != nil {
 			return err
 		}
-
-		id := model.UserId(i)
 
 		user, err := registory.UserService().Get(id)
 		if err != nil {
 			return err
 		}
 
-		return c.JSON(200, user)
+		return c.JSON(200, response.GetUserResponse{User: user})
 	})
 }

@@ -22,15 +22,28 @@ func init() {
 	}
 
 	// テーブル作成
-	cmd := `CREATE TABLE IF NOT EXISTS users(
-		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		name STRING,
-		created_at DATETIME
-	)`
+	cmdList := []string{
+		`CREATE TABLE IF NOT EXISTS users(
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			name STRING,
+			created_at DATETIME
+		)`,
+		`CREATE TABLE IF NOT EXISTS todos(
+			id INTEGER PRIMARY KEY AUTOINCREMENT,
+			user_id INTEGER,
+			title STRING,
+			description STRING,
+			created_at DATETIME,
+			delete_at DATETIME,
+			FOREIGN KEY(user_id) REFERENCES users(id)
+		)`,
+	}
 
-	_, err = db.Exec(cmd)
-	if err != nil {
-		log.Fatal(err)
+	for _, cmd := range cmdList {
+		_, err = db.Exec(cmd)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
 

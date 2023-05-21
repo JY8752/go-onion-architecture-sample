@@ -2,7 +2,7 @@ package ui
 
 import (
 	"github.com/JY8752/go-onion-architecture-sample/registory"
-	handler "github.com/JY8752/go-onion-architecture-sample/userinterface/handler/user"
+	handler "github.com/JY8752/go-onion-architecture-sample/userinterface/handler"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -29,7 +29,7 @@ func (a *ApiClient) RegisterRoute() {
 	handler.UserHandler(a.client, a.registory)
 
 	// todo
-
+	handler.TodoHandler(a.client, a.registory)
 }
 
 func (a *ApiClient) Start() {

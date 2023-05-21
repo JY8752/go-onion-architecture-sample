@@ -1,8 +1,8 @@
 package service
 
 import (
-	model "github.com/JY8752/go-onion-architecture-sample/domain/model/user"
-	repository "github.com/JY8752/go-onion-architecture-sample/domain/repository/user"
+	model "github.com/JY8752/go-onion-architecture-sample/domain/model"
+	repository "github.com/JY8752/go-onion-architecture-sample/domain/repository"
 )
 
 type UserService interface {
