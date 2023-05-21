@@ -14,7 +14,7 @@ import (
 var todoRep repository.TodoRepository
 
 func TestMain(m *testing.M) {
-	d := db.NewDBClient("file:testdb?mode=memory")
+	d := db.NewDBClient("file:infrastructure_test_db?mode=memory")
 	todoRep = infrastructure.NewTodoRepository(d)
 
 	code := m.Run()
