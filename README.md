@@ -20,7 +20,7 @@ use echo.
 go get github.com/labstack/echo/v4
 ```
 
-## response
+## api
 
 ### todo
 
@@ -136,3 +136,31 @@ response
   }
 }
 ```
+
+## test
+
+### testify
+
+```
+go get github.com/stretchr/testify
+```
+
+### gomock
+
+```
+go get github.com/golang/mock/gomock
+```
+
+create mock
+
+```
+go generate ./...
+```
+
+### dockertest
+
+```
+go get -u github.com/ory/dockertest/v3
+```
+
+**but, this sample use sqlite3. so, not use dockertest.**

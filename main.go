@@ -8,7 +8,7 @@ import (
 
 func main() {
 	// db
-	db := db.NewDBClient()
+	db := db.NewDBClient("./go_onion_architecture.db")
 	defer db.Client.Close()
 
 	// registory
