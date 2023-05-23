@@ -9,6 +9,11 @@ import (
 )
 
 func UserHandler(client *echo.Echo, registory registory.Registory) {
+	CreateUserHandler(client, registory)
+	GetUserHandler(client, registory)
+}
+
+func CreateUserHandler(client *echo.Echo, registory registory.Registory) {
 	client.POST("/users", func(c echo.Context) error {
 		var r request.CreateUserRequest
 		if err := c.Bind(&r); err != nil {
@@ -22,7 +27,9 @@ func UserHandler(client *echo.Echo, registory registory.Registory) {
 
 		return c.JSON(200, response.CreateUserResponse{Id: id})
 	})
+}
 
+func GetUserHandler(client *echo.Echo, registory registory.Registory) {
 	client.GET("/user/:id", func(c echo.Context) error {
 		id, err := common.GetUserId(c.Param("id"))
 		if err != nil {

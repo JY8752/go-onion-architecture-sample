@@ -1,5 +1,7 @@
 package registory
 
+//go:generate mockgen -source=$GOFILE -destination=../mocks/$GOPACKAGE/mock_$GOFILE -package=mock_registory
+
 import (
 	service "github.com/JY8752/go-onion-architecture-sample/application/service"
 	repository "github.com/JY8752/go-onion-architecture-sample/domain/repository"

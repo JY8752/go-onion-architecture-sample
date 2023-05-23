@@ -164,3 +164,9 @@ go get -u github.com/ory/dockertest/v3
 ```
 
 **but, this sample use sqlite3. so, not use dockertest.**
+
+### golden test
+
+```
+go get -u github.com/sebdah/goldie/v2
+```
